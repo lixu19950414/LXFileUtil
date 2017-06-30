@@ -9,7 +9,7 @@
 #ifndef Defines_h
 #define Defines_h
 
-#define LX_FU_UNIX
-//#define LX_FU_WINDOWS
+//#define LX_FU_UNIX
+#define LX_FU_WINDOWS
 
 #endif /* Defines_h */

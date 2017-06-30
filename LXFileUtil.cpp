@@ -33,7 +33,7 @@ namespace LX_FU {
 #ifdef LX_FU_WINDOWS
         if (path.length() > 2
             && ((path[0] >= 'a' && path[0] <= 'z')||(path[0] >= 'A' && path[0] <= 'Z'))
-            && (str[1] == ':'))
+            && (path[1] == ':'))
         {
             return true;
         }

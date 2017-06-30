@@ -15,14 +15,12 @@
 
 namespace LX_FU {
     namespace INI{
-        IniConfig::IniConfig(const int lineLength):
-        m_iLineLength(lineLength)
+        IniConfig::IniConfig()
         {
             
         };
         
-        IniConfig::IniConfig(const std::string& configName, const int lineLength):
-        m_iLineLength(lineLength)
+        IniConfig::IniConfig(const std::string& configName)
         {
             loadFromFile(configName);
         }
@@ -75,10 +73,10 @@ namespace LX_FU {
         
         bool IniConfig::loadFromFile(const std::string& configName){
             std::ifstream config(LX_FU::getAbsolutePath(configName), std::ios::in);
-            char buffer[m_iLineLength];
+            char buffer[32];
             if (config) {
                 while (!config.eof()) {
-                    config.getline(buffer, m_iLineLength);
+                    config.getline(buffer, 32);
                     std::string tmp(buffer);
                     if (*tmp.begin() == '#') {
                         continue;
@@ -96,8 +94,8 @@ namespace LX_FU {
             return false;
         }
         
-        IniConfig readIniConfigFromFile(const std::string& configName, const int lineLength){
-            return IniConfig(configName, lineLength);
+        IniConfig readIniConfigFromFile(const std::string& configName){
+            return IniConfig(configName);
         }
         
         bool saveIniConfigToFile(IniConfig& iniConfig, const std::string& configName){

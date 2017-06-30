@@ -27,8 +27,8 @@ namespace LX_FU {
         {
             
         public:
-            IniConfig(const int lineLength=32);
-            IniConfig(const std::string& configName, const int lineLength=32);
+            IniConfig();
+            IniConfig(const std::string& configName);
             ~IniConfig();
             
             bool saveToFile(const std::string& configName);
@@ -41,10 +41,9 @@ namespace LX_FU {
             
         private:
             std::map<std::string, std::string> m_mapIni;
-            const int m_iLineLength;
         };
         
-        IniConfig readIniConfigFromFile(const std::string& configName, const int lineLength=32);
+        IniConfig readIniConfigFromFile(const std::string& configName);
         
         bool saveIniConfigToFile(IniConfig& iniConfig, const std::string& configName);
     }
