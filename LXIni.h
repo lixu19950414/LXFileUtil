@@ -19,6 +19,7 @@ namespace LX_FU {
      * Name space LX_FU::INI
      * getIniConfigMap & saveIniConfigFile
      *
+	 * @warning One line's size should not be greater than 32
      */
     
     namespace INI {
