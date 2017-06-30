@@ -67,7 +67,7 @@ namespace LX_FU {
                 return true;
             }
             
-            std::cout<<"Error::saveConfigToFile: cannot open file with name -- "<<configName<<std::endl;
+            std::cout<<"Error::saveConfigToFile: cannot open file with name -- "<< getAbsolutePath(configName)<<std::endl;
             return false;
         };
         
