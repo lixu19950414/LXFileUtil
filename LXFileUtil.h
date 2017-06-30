@@ -15,7 +15,6 @@
 #include <map>
 
 /* The classes below are exported */
-//#pragma GCC visibility push(default)
 
 namespace LX_FU {
     
@@ -35,7 +34,4 @@ namespace LX_FU {
     bool isAbsolutePath(const std::string& path);
     
 }
-
-
-//#pragma GCC visibility pop
 #endif
