@@ -55,20 +55,24 @@ namespace LX_FU {
         };
         
         bool IniConfig::saveToFile(const std::string& configName){
-            std::ofstream of(LX_FU::getAbsolutePath(configName), std::ios::out);
-            if (of) {
-                for (auto it: m_mapIni){
-                    of.write(it.first.c_str(), it.first.size());
-                    of.write("=", 1);
-                    of.write(it.second.c_str(), it.second.size());
-                    of.write("\n", 1);
-                }
-                of.close();
-                return true;
-            }
-            
-            std::cout<<"Error::saveConfigToFile: cannot open file with name -- "<< getAbsolutePath(configName)<<std::endl;
-            return false;
+			bool success = LX_FU::makeDirectories(configName);
+			if (success)
+			{
+				std::ofstream of(LX_FU::getAbsolutePath(configName), std::ios::out);
+				if (of) {
+					for (auto it : m_mapIni) {
+						of.write(it.first.c_str(), it.first.size());
+						of.write("=", 1);
+						of.write(it.second.c_str(), it.second.size());
+						of.write("\n", 1);
+					}
+					of.close();
+					return true;
+				}
+				std::cout << "Error::saveConfigToFile: cannot open file with name -- " << getAbsolutePath(configName) << std::endl;
+				return false;
+			}
+			std::cout << "Error::saveConfigToFile: cannot create dir with name -- " << getAbsolutePath(configName) << std::endl;
         };
         
         bool IniConfig::loadFromFile(const std::string& configName){

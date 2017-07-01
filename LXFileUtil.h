@@ -22,16 +22,50 @@ namespace LX_FU {
      * Global path prefix of fileutil to fix relative paths.
      *
      */
-    
     static std::string g_strPathPrefix = "/";
 
+	/**
+	* Set global path prefix of fileutil to fix relative paths.
+	*
+	*/
     void setPathPrefix(const std::string& path);
     
+	/**
+	* Get global path prefix of fileutil to fix relative paths.
+	*
+	*/
     std::string getPathPrefix();
     
+	/**
+	* Get absolute path of a path according to path prefix.
+	*
+	*/
     std::string getAbsolutePath(const std::string& relativePath);
     
+	/**
+	* Judge whether the given path is absolute path or not.
+	*
+	*/
     bool isAbsolutePath(const std::string& path);
+
+	/**
+	* Get the directory of a path.
+	*
+	*/
+	std::string getDirectory(const std::string& path);
+
+	/**
+	* Get file name of a path.
+	*
+	*/
+	std::string getFileName(const std::string& path);
+
+	/**
+	* Create directories if the given path not exists.
+	*
+	*/
+	bool makeDirectories(const std::string& path);
     
 }
+
 #endif

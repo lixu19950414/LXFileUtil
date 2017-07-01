@@ -10,6 +10,23 @@
 #include "LXFileUtil.h"
 #include "LXFUDefines.h"
 
+
+#ifdef LX_FU_WINDOWS
+#include <io.h>
+#include <direct.h> 
+#else
+#include <unistd.h>
+#include <sys/stat.h>
+#endif
+
+#ifdef LX_FU_WINDOWS
+#define ACCESS(fileName,accessMode) _access(fileName,accessMode)
+#define MKDIR(path) _mkdir(path)
+#else
+#define ACCESS(fileName,accessMode) access(fileName,accessMode)
+#define MKDIR(path) mkdir(path,S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)
+#endif
+
 namespace LX_FU {
     void setPathPrefix(const std::string& path){
 #ifdef LX_FU_WINDOWS
@@ -45,6 +62,51 @@ namespace LX_FU {
         return false;
 #endif
     }
+
+	std::string getDirectory(const std::string & path)
+	{
+		std::string absolutePath = getAbsolutePath(path);
+#ifdef LX_FU_WINDOWS
+		int index = absolutePath.find_last_of('\\');
+#else
+		int index = absolutePath.find_last_of('/');
+#endif // LX_FU_WINDOWS
+		if (index >= 0)
+		{
+			return absolutePath.substr(0, index + 1);
+		}
+		return std::string();
+	}
+
+	std::string getFileName(const std::string & path)
+	{
+		std::string absolutePath = getAbsolutePath(path);
+#ifdef LX_FU_WINDOWS
+		int index = absolutePath.find_last_of('\\');
+#else
+		int index = absolutePath.find_last_of('/');
+#endif // LX_FU_WINDOWS
+		if (index >= 0)
+		{
+			return absolutePath.substr(index + 1, absolutePath.size());
+		}
+		return std::string();
+	}
+
+	bool makeDirectories(const std::string & path)
+	{
+		std::string directoryPath = getDirectory(getAbsolutePath(path));
+		if (ACCESS(directoryPath.c_str(), 0) == 0) {
+			return true;
+		}
+		else {
+			int ret = MKDIR(directoryPath.c_str());
+			if (ret == 0) {
+				return true;
+			}
+			return false;
+		}
+	}
     
     std::string getAbsolutePath(const std::string& relativePath){
         if (isAbsolutePath(relativePath))

@@ -32,11 +32,36 @@ namespace LX_FU {
             IniConfig(const std::string& configName);
             ~IniConfig();
             
+			/**
+			* Save the current config map to file.
+			* If the file do not exists, this will create the file.
+			*
+			* @warning this will overwrite the file in existance.
+			*/
             bool saveToFile(const std::string& configName);
+
+			/**
+			* Load configs from a file.
+			*
+			*/
             bool loadFromFile(const std::string& configName);
             
+			/**
+			* Judge whether current configs contains key of confName or not.
+			*
+			*/
             bool hasConf(const std::string& confName);
+
+			/**
+			* Get the value of confName, return "" if do not have this config.
+			*
+			*/
             std::string getConf(const std::string& confName);
+
+			/**
+			* Set key->value to this ini config.
+			*
+			*/
             void setConf(const std::string& key, const std::string& value);
             
             
