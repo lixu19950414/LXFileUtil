@@ -107,6 +107,13 @@ namespace LX_FU {
 			return false;
 		}
 	}
+
+	Data* getDataFromFile(const std::string & path)
+	{
+		Data* d = new Data;
+		d->initFromFile(path);
+		return d;
+	}
     
     std::string getAbsolutePath(const std::string& relativePath){
         if (isAbsolutePath(relativePath))
@@ -122,5 +129,36 @@ namespace LX_FU {
 #endif
         }
     }
+
+	Data::Data():
+	_loadSucceed(false)
+	{
+	}
+
+	Data::~Data()
+	{
+		_sstream.clear();
+	}
+
+	bool Data::initFromFile(const std::string& path)
+	{
+		std::ifstream file;
+		// ensures ifstream objects can throw exceptions:
+		file.exceptions (std::ifstream::badbit);
+		try
+		{
+		    // Open files
+			file.open(getAbsolutePath(path));
+		    // Read file's buffer contents into streams
+		    _sstream << file.rdbuf();
+			_loadSucceed = true;
+		}
+		catch (std::ifstream::failure e)
+		{
+		    std::cout << "ERROR::FILE_NOT_SUCCESFULLY_READ: " << path << std::endl;
+			std::cout << e.what() << std::endl;
+		}
+		return false;
+	}
 }
 

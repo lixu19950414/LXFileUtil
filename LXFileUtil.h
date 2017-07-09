@@ -13,11 +13,13 @@
 #include <string>
 #include <iostream>
 #include <map>
+#include <fstream>
+#include <sstream>
 
 /* The classes below are exported */
 
 namespace LX_FU {
-    
+
     /**
      * Global path prefix of fileutil to fix relative paths.
      *
@@ -65,6 +67,29 @@ namespace LX_FU {
 	*
 	*/
 	bool makeDirectories(const std::string& path);
+
+	/**
+	* Create directories if the given path not exists.
+	*
+	*/
+	class Data {
+	public:
+		Data();
+		~Data();
+		bool initFromFile(const std::string& path);
+		inline std::string getString() { return _sstream.str(); };
+		inline int getDataLen() { return _sstream.str().length(); };
+		inline bool loadSucceed() { return _loadSucceed; };
+	private:
+		std::stringstream _sstream;
+		bool _loadSucceed;
+	};
+
+	/**
+	* Create directories if the given path not exists.
+	*
+	*/
+	Data* getDataFromFile(const std::string& path);
     
 }
 
